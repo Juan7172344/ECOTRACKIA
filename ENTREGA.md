@@ -36,6 +36,8 @@ La consecuencia de diseño es que cada supuesto que hace la IA queda visible baj
 
 La aplicación **nunca deja al usuario sin respuesta**. Si la IA falla, devuelve un formato inesperado o simplemente no está disponible, un intérprete local de expresiones regulares toma el relevo, entrega un cálculo y la interfaz indica que está operando en modo local. El error técnico jamás llega a la pantalla del dueño del negocio.
 
+**Nota sobre este despliegue:** la variable `ANTHROPIC_API_KEY` no está configurada en Vercel a propósito, para no requerir una cuenta de facturación en la API solo para esta entrega. Por eso la app corre en **modo local**: el punto de estado lo indica ("Modo local (sin IA)") y el cálculo se hace con el intérprete de expresiones regulares en vez de la extracción por IA. El código de `api/extract.js` y la integración completa con el modelo están en el repositorio y documentados en esta bitácora; activarlos es cuestión de agregar una clave real y hacer un redeploy, como se explica en `README.md`.
+
 La clave de API vive en una función serverless, nunca en el cliente. La aplicación es un solo archivo HTML autocontenido, sin build ni dependencias.
 
 ### Sobre el proceso
@@ -50,4 +52,4 @@ También encontré el límite. La IA genera con entusiasmo lo que no se le pide 
 
 ### Versión corta (para el campo de comentarios de la entrega)
 
-> EcoTrack AI: MVP web donde un negocio pequeño describe su día en lenguaje natural y recibe su huella de carbono desglosada. La decisión de arquitectura central es que la IA solo extrae y estructura el texto —resolviendo cosas como "5 camionetas × 40 km" = 200 km— mientras la aritmética la hace el navegador contra una tabla fija de factores de emisión, de modo que las cifras son reproducibles y auditables. Incluye intérprete local de respaldo para que la app nunca deje al usuario sin resultado. La bitácora documenta el Master Prompt, cinco iteraciones de diseño en lenguaje natural y dos desafíos técnicos resueltos dirigiendo a la IA, sin escribir código a mano.
+> EcoTrack AI: MVP web donde un negocio pequeño describe su día en lenguaje natural y recibe su huella de carbono desglosada. La decisión de arquitectura central es que la IA solo extrae y estructura el texto —resolviendo cosas como "5 camionetas × 40 km" = 200 km— mientras la aritmética la hace el navegador contra una tabla fija de factores de emisión, de modo que las cifras son reproducibles y auditables. La integración con el modelo está implementada en `api/extract.js` y documentada en la bitácora; este despliegue corre sobre el intérprete local de respaldo (sin clave de API activa) para no requerir facturación, y ese mismo respaldo es lo que garantiza que la app nunca deja al usuario sin resultado. La bitácora documenta el Master Prompt, cinco iteraciones de diseño en lenguaje natural y dos desafíos técnicos resueltos dirigiendo a la IA, sin escribir código a mano.
