@@ -1,0 +1,7 @@
+{
+  "name": "ecotrack-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MVP de huella de carbono para negocios pequenos, con extraccion de consumos en lenguaje natural",
+  "type": "module"
+}
